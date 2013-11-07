@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:tal="http://xml.zope.org/namespaces/tal">
+  <head>
+    <title>The Pyramid Web Framework</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="keywords" content="python web application" />
+    <meta name="description" content="pyramid web application" />
+    <link rel="shortcut icon" href="${request.static_url('galoes:static/favicon.ico')}" />
+    <link rel="stylesheet" href="${request.static_url('galoes:static/pylons.css')}" type="text/css" media="screen" charset="utf-8" />
+    <!--[if lte IE 6]>
+  <link rel="stylesheet" href="${request.static_url('galoes:static/ie6.css')}" type="text/css" media="screen" charset="utf-8" />
+  <![endif]-->
+  </head>
+  <body>
+    <div class="header">
+      <a class="logo" href="http://www.glottotopia.de/cms/Home">Galoes</a>
+      <ul class="gotobar">
+        <li class="wikilink current">
+          <a href="/axessearch">Axessearch</a>
+        </li>
+        <li class="wikilink">
+          <a href="/treesearch">Treesearch</a>
+        </li>
+      </ul>
+    </div>
+    <!--  <div class="header"> 
+ 
+    <h1 id="title">Galoes</h1>
+  </div>-->
+    <div class="wrapper">
+      <div class="content" dir="ltr" lang="en">
+        <div dir="ltr" id="content" lang="en">
+        <div id="title">
+            <h1>Galoes</h1>
+        </div>
+       <div>  
+	<div id="summary">
+	    searched for <span tal:content="searchstring" /> in ${len(pages)} pages. Search yielded  
+${sum([pages[lg]['totalmatches'] for lg in pages])}
+results.
+	</div> 
+	    <div class="lgresultsheet" tal:repeat="lg pages">
+		<h3> ${pages[lg]['name']} (${pages[lg]['code']})  total matches:${pages[lg]['totalmatches']}</h3>   
+<!-- 		<div py:if="len(lg['results'])>0"> -->
+		    <div class="resultlinklist">
+			<dl tal:repeat="result pages[lg]['results']"> 
+				<hr />
+				<dt><a href="{result['link']}">${result['term']}</a></dt>
+				<dd>			  
+				    ${result['definition']}
+				</dd> 
+			</dl>
+		    </div>
+<!-- 		</div> -->
+	    </div> 
+        </div>
+
+
+        </div>
+        <div id="pagebottom"></div>
+      </div>
+    </div>
+  </body>
+</html>

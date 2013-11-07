@@ -1,0 +1,353 @@
+ 
+
+:focus
+{
+  outline: 0;
+}
+
+ins
+{
+  text-decoration: none;
+}
+
+del
+{
+  text-decoration: line-through;
+}
+
+table
+{
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+  
+.hidden
+{
+  display: none;
+}
+  
+ 
+ 
+
+.header, .footer
+{
+  width: 750px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.wrapper
+{
+  width: 100%;
+}
+ 
+
+#middle
+{
+  width: 100%;
+/*   height: 100px; */
+  background: url(middlebg.png) repeat-x;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #b2b2b2;
+}
+
+ 
+ 
+.align-left
+{
+  text-align: left;
+}
+
+.align-right
+{
+  text-align: right;
+}
+
+.align-center
+{
+  text-align: center;
+}
+ 
+ 
+
+/*Opera Fix*/
+body:before
+{
+  content: "";
+  height: 100%;
+  float: left;
+  width: 0;
+  margin-top: -32767px;
+}
+
+
+/* SEB */
+html{
+    background-color: #F0F0FF;
+    font-family: DejaVu Sans,Droid Sans,Verdana,sans-serif;
+}
+
+
+body{
+    text-align:left !important;
+}
+/* headings */
+h3{ 
+    font-size:150% !important;
+    margin: 10px !important;
+}
+
+h1{ 
+    font-size:200%;
+    margin: 3px;
+    margin-top: 15px;
+    margin: 3px;
+}
+
+h1 span{
+    background:#88bbcc;
+    border: solid 2px #ffdd99;
+}
+
+#ldslgscontainer{
+    margin:10px;
+}
+
+/*div placement*/
+
+div#links{
+width:25%; 
+float:left;
+position:relative;   
+overflow-y:auto;   
+margin-right: 10px;
+overflow-y: auto;
+padding-left: 2px;
+padding-right: 2px;
+position: relative;
+width: 200px;
+border-right: solid black 1px;
+}
+
+div#links ul{
+/* height:600px; */
+/* overflow-y:auto; */
+}
+ 
+div#axessearches{
+width:25%;
+position:relative; 
+float:right;
+right:10px; 
+}
+
+div#description{
+width:40%;   
+text-align:left;
+margin-left:auto;
+margin-right:auto;
+}
+ 
+ 
+/*End div*/
+
+#links li{
+text-align:left;
+margin:3px;
+}
+
+#links li a{
+ color:brown;
+}	  
+
+#axessearches select{
+/*     background-color:khaki; */
+}
+
+dl{
+    margin:10px;
+    padding:10px;
+}
+
+dt {
+    font-weight:bold;
+    font-size:110%;
+    margin:20px;
+}
+
+.lgresultsheet{
+    padding:20px;
+    margin-top:20px;
+    margin-left:50px;
+    width:60%;
+    background:beige;
+    -moz-border-radius:10px;
+    -moz-box-shadow: 1px 1px 12px #888888;
+    border: double black 1px;
+}
+
+.resultlinklist{
+    background:#C2B280;/*french beige*/
+    max-height:400px;
+    overflow-y:scroll;
+    padding:3px;
+    border: solid black 1px;
+}
+
+
+
+strong{
+    color:darkblue;
+    font-weight:bold;
+}
+
+
+#questionstring{
+    margin:5px;
+}
+
+.questionnaire{
+    text-align:right;
+    margin:2px;
+}
+
+#freesearch{
+/*     background-color:khaki; */
+}
+
+
+.questionbox{
+    width:10em; 
+}
+
+abbr:before{
+    content:'?';
+}
+
+ul{
+    text-align:left;
+    padding: 0px 0px 0px 5px; 
+}
+
+h2 {
+    padding:0;
+    margin:0;
+    margin-bottom: 2.5%;
+}
+
+ul {
+	margin-top:1px;
+        margin-bottom:1px;
+	margin-left:0px;
+	padding-left:3%;
+}
+
+li {
+  margin-top:10px;   
+  margin-bottom:10px;
+}
+
+ul li {
+	list-style:square;
+	font-family:sans-serif;
+	font-weight:normal;
+}
+
+li.basic {
+	list-style:square;
+	list-style-image:none;
+  margin-top:2px;
+  margin-bottom:2px;
+}
+
+.sub { display: none; }
+.subexp {display: block; }
+.sub { display: none; } 
+
+.subexp {display: block; } 
+
+li.exp {
+  list-style-image:url("/images/plus.png");
+  margin-top:10px;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+
+li.col {
+  list-style-image:url("/images/minus.png");
+  margin-top:10px;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+
+li.exp_active {
+  list-style-image:url("/images/plus.png");
+  margin-top:10px;  
+  margin-bottom:10px;
+  background-color:darkkhaki;
+  cursor:pointer;
+}
+
+li.col_active {
+  list-style-image:url("/images/minus.png");
+  margin-top:10px;
+  margin-bottom:10px;
+  background-color:darkkhaki;
+  cursor:pointer; /* if not included, bullets are not shown right in moz*/
+}
+
+
+li.basic_active {
+  list-style:square;
+  list-style-image:none;
+  background-color:darkkhaki;
+  margin-top:2px;
+  margin-bottom:2px;
+}
+
+.scrollcontainer{
+    overflow:auto; 
+    height:500px;
+}
+
+li.box {
+    float: left;
+    list-style: none;
+    display: inline;
+    margin: 3px; padding: 13px;
+    border: 1px solid black; 
+    width: 45%;
+}
+
+li.languagelistitem{  
+    list-style: none; 
+    margin: 3px; 
+    padding: 1px; 
+}
+
+ 
+
+.scroll{
+	overflow-y:auto;
+}
+ 
+ 
+.app_tab{
+    display:inline; 
+    list-style:none;
+    margin-left:30px; 
+}
+
+#generalheader{
+    background: #2266bb;
+    border-bottom: double black 4px;
+}
+
+#title{
+    font-size:200%;
+}
+
+#generalheader{
+    height: 20px;
+    border-bottom: double black 2px;
+}

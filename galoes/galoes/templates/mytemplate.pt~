@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:tal="http://xml.zope.org/namespaces/tal">
+  <head>
+    <title>The Pyramid Web Framework</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="keywords" content="python web application" />
+    <meta name="description" content="pyramid web application" />
+    <link rel="shortcut icon" href="${request.static_url('galoes:static/favicon.ico')}" />
+    <link rel="stylesheet" href="${request.static_url('galoes:static/pylons.css')}" type="text/css" media="screen" charset="utf-8" />
+    <!--[if lte IE 6]>
+  <link rel="stylesheet" href="${request.static_url('galoes:static/ie6.css')}" type="text/css" media="screen" charset="utf-8" />
+  <![endif]-->
+  </head>
+  <body>
+    <div class="header">
+      <a class="logo" href="http://www.glottotopia.de/cms/Home">Galoes</a>
+      <ul class="gotobar">
+        <li class="wikilink current">
+          <a href="/axessearch">Axessearch</a>
+        </li>
+        <li class="wikilink">
+          <a href="/treesearch">Treesearch</a>
+        </li>
+      </ul>
+    </div>
+    <!--  <div class="header"> 
+ 
+    <h1 id="title">Galoes</h1>
+  </div>-->
+    <div class="wrapper">
+      <div class="content" dir="ltr" lang="en">
+        <div dir="ltr" id="content" lang="en">
+          <div id="links">
+            <h3>Language wikis</h3>
+            <p class="comment">some of the wikis are restricted to editors and do not allow read access</p>
+            <ul tal:repeat="gl grammarlist">
+              <li>
+                <a tal:attributes="href '/grammars/{}'.format(gl[0])">
+                <span tal:content="gl[1]" />( 
+                <span tal:content="gl[0]" />)</a>
+              </li>
+            </ul>
+          </div>
+          <div id="axessearches">
+            <form id="galoesquery" method="get" target="blank_" action="/grammarsearch">
+              <h3>Select your language(s)</h3>
+              <p class="comment">You can select more than one language by pressing the &lt;ctrl&gt;-button while clicking</p>
+              <p>
+                <select id="lgscontainer" name="lgs[]" size="10" multiple="multiple" class="rightfield">
+                  <option tal:repeat="gl grammarlist" tal:attributes="value gl[0]">${gl[1]}</option>
+                </select>
+              </p>
+              <h3>Select your question</h3>
+              <p class="comment">you can either choose a pre-defined question from the 
+              <abbr title="Lingua Descriptive Series">LDS</abbr>, 
+              <abbr title="World Atlas of Language Structures">WALS</abbr>, or 
+              <abbr title="Ontology of Comparative Concepts Used in Linguistic Typology/General Ontology for Linguistic Description">OCCULT-GOLD</abbr>questionnaires, or you can start a free search.</p>
+              <table>
+                <tr>
+                  <td>
+                    <p class="questionnaire">WALS 
+                    <select id="walscontainer" name="wals" size="1" class="questionbox" style="text-align:right;" onchange="document.getElementById('questionstring').value = walsquestions[this.value];document.getElementById('questionnaireused').value = 'WALS';">
+                      <option tal:repeat="q walslist" tal:attributes="value q[0];name q[1]">${q[0]}</option>
+                    </select></p>
+                    <p class="questionnaire">OCCULT 
+                    <select id="fqcontainer" name="fq" size="1" class="questionbox" onchange="document.getElementById('questionstring').value = occultquestions[this.value];document.getElementById('questionnaireused').value = 'FQ';">
+                      <option tal:repeat="q occultlist" tal:attributes="value q[0];name q[1]">${q[0]}</option>
+                    </select></p>
+                    <p class="questionnaire">LDS 
+                    <select id="ldscontainer" name="lds" class="questionbox" onchange="document.getElementById('questionstring').value = ldsquestions[this.value];document.getElementById('questionnaireused').value = 'LDS';">
+                      <option tal:repeat="q ldslist" tal:attributes="value q[0];name q[1]">${q[0]}</option>
+                    </select></p>
+                    <p class="questionnaire">
+                      <input id="freesearch" name="freesearch" type="text" size="15" class="questionbox" value="Free search" onclick="document.getElementById('questionnaireused').value = 'Freesearch';this.value='';" onkeyup="document.getElementById('questionstring').value = this.value" />
+                    </p>
+                    <input type="hidden" id="questionnaireused" name="questionnaireused" value=""></input>
+                  </td>
+                  <td>
+                    <p>
+                      <textarea id="questionstring" rows="4" cols="20" readonly="readonly"></textarea>
+                    </p>
+                    <input type="submit" style="float:right;"></input>
+                  </td>
+                </tr>
+              </table>
+            </form>
+            <p class="comment">You can also use the 
+            <a href="./trees.html">tree view</a>to select a question.</p>
+          </div>
+          <div id="description">
+            <p>Galoes is an online grammar authoring tool for the description of natural languages. It is designed to be usable for any particular description framework a particular language may require. However, the focus is on severely underdescribed languages.</p>
+            <p>GALOES supports rendering of linguistic examples, embedded audio files, embedded video files, cross-references, collaboration tools and more. There is an online version on www.galoes.org and an offline client to be used on your laptop. You can get the offline version 
+            <a href="./galoes.zip">here</a>.</p>
+            <p>Currently there is one full grammatical description available, while several people have expressed interest in authoring additional grammatical descriptions in the system. As of now, descriptions are classified along isocodes, so a description of Sri Lanka Malay, for instance, would be located at 
+            <a href="http://www.galoes.org/grammars/sci">http://www.galoes.org/grammars/sci</a>, since 'sci' is the isocode for Sri Lanka Malay. You can collaborate in the description of a language. If you send me an email with the name and ISO-code of the language and a short description of your project, I will set up the system for you.</p>
+            <p>The platform is up and running, but the documentation is still in the process of being written. You can find the manual at 
+            <a href="http://www.galoes.org/grammars/und/Manual">http://www.galoes.org/grammars/und/Manual</a></p>
+          </div>
+        </div>
+        <div id="pagebottom"></div>
+      </div>
+    </div>
+  </body>
+</html>
