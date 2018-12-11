@@ -2,6 +2,14 @@ import urllib
 from BeautifulSoup import BeautifulSoup   
 import re
 
+import sys
+import re
+import xapian
+from MoinMoin.search.Xapian.indexing import MoinSearchConnection 
+from MoinMoin import wikiutil
+
+#from galoes.lib import crossquery
+
 
 from pyramid.view import view_config
 
@@ -31,46 +39,55 @@ def my_view(request):
 	]
 }
 
-@view_config(route_name='result', renderer='templates/result.pt')
-def result(request): 
-    host = "http://www.galoes.org/grammars"
-    context = 180
-    
-    questionnaireused = request.params.get('questionnaireused',u'')
-    
-    searchstring = 'Kasus'
-    lgs =  ['fin','swe', 'sci']
-    pages = {}
+@view_config(route_name='grammarsearch', renderer='templates/result.pt')
+def grammarsearch(request): 
+    lgs = request.params.getall('lgs[]')
+    print lgs
+    querystring = request.params.get('freesearch','no_querystring_provided')
+    d = {}
+    totalmatches = 0
     for lg in lgs:
-	lgresults = []
-	urlstring = "%s/%s?action=fullsearch&context=%i&value=%s&fullsearch=Text" % (host,lg,context,searchstring)  
-	getpage = urllib.urlopen(urlstring)
-	soup = BeautifulSoup(getpage)
-	dts = soup.findAll('dt')
-	dds = soup.findAll('dd')  
-	matcharr = soup.findAll("span", "info") 
-	totalmatches = sum([int(str(x.next).replace(' . . . ','').replace(' matches','').replace(' match','')) for x in matcharr]) 
-	results = []
+	d[lg] = crossquery(querystring, lg)
+	for r in d[lg]: 
+	    totalmatches += len(r['matches'])
+		
 	
-	for term, definition in zip(dts,dds):
-	    linkportion = re.compile('\%28.*\%29">(.*?)</a>').search(unicode(term)).group(1)  
-	    link = "%s/%s/%s" % (host,lg,linkportion)
-	    try:
-		term = term.decode('utf8')
-	    except TypeError:
-		term = repr(term)
-	    try:
-		definition = definition.decode('utf8')
-	    except TypeError:
-		definition = repr(definition)
-	    #weakstrongarr = h.destrongify(definition)
-	    #weakstrongarr = [h.dewikify(h.striptags(x)) for x in weakstrongarr]  
-	    results.append({'term':repr(term),'definition':repr(definition),'link':link}) 
-	dico = {'code':lg, 'name':lg,'results':results, 'totalmatches':totalmatches} 
-	pages[lg] = dico
-    
     
     return {'project': 'galoes',
-            'searchstring': searchstring,
-            'pages' : pages
+            'searchstring': querystring,
+            'pages' : d,
+            'totalmatches': totalmatches
     }
+    
+def crossquery(querystring, lg): 
+    url = 'http://www.galoes.org/grammars/%s/%s'
+    width = 20 
+    
+    d = '/var/wiki' 
+    results = [] 
+    qp = xapian.QueryParser() 
+    database = xapian.Database('/var/wiki/xapian/%s/index'%lg) 
+    qp.set_database(database)
+    msc = MoinSearchConnection(database)
+    qresults = msc.get_all_documents(query=qp.parse_query(querystring))
+    
+    for r in qresults:
+	wikiname = r.data['title'][0]
+	wikinamefs = wikiutil.quoteWikinameFS(wikiname)
+	try:	
+	    refv = '%s/%s/pages/%s/current'%(d,lg,wikinamefs) 
+	    revnr = open(refv).read().strip()
+	    contentf = '%s/%s/pages/%s/revisions/%s'%(d,lg,wikinamefs,revnr) 
+	    content = open(contentf).read().decode('utf8')
+	except IOError:
+	    print "File not Found", wikinamefs
+	    continue
+	
+	matches = re.findall(u'%s%s%s' % ('.'+'{,%i}'%width,querystring.lower(),'.'+'{,%i}'%width),content.lower())
+	print matches
+	results.append({'link':url%(lg,wikinamefs),
+			'totalmatches':len(matches),
+			'matches':matches,
+			'name':wikiname,
+			    })
+    return results

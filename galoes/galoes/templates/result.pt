@@ -7,7 +7,8 @@
     <meta name="keywords" content="python web application" />
     <meta name="description" content="pyramid web application" />
     <link rel="shortcut icon" href="${request.static_url('galoes:static/favicon.ico')}" />
-    <link rel="stylesheet" href="${request.static_url('galoes:static/pylons.css')}" type="text/css" media="screen" charset="utf-8" />
+<!--     <link rel="stylesheet" href="${request.static_url('galoes:static/pylons.css')}" type="text/css" media="screen" charset="utf-8" /> -->
+    <link rel="stylesheet" href="http://88.198.149.2/galoes/static/pylons.css" type="text/css" media="screen" charset="utf-8" />
     <!--[if lte IE 6]>
   <link rel="stylesheet" href="${request.static_url('galoes:static/ie6.css')}" type="text/css" media="screen" charset="utf-8" />
   <![endif]-->
@@ -31,34 +32,35 @@
     <div class="wrapper">
       <div class="content" dir="ltr" lang="en">
         <div dir="ltr" id="content" lang="en">
+
         <div id="title">
             <h1>Galoes</h1>
         </div>
-       <div>  
+       
+<div>  
 	<div id="summary">
 	    searched for ${searchstring} in ${len(pages)} pages. Search yielded  
-${sum([pages[lg]['totalmatches'] for lg in pages])}
+${totalmatches}
 results.
 	</div> 
+
 	    <div class="lgresultsheet" tal:repeat="lg pages">
-		<h3> ${pages[lg]['name']} (${pages[lg]['code']})  total matches:${pages[lg]['totalmatches']}</h3>   
-<!-- 		<div py:if="len(lg['results'])>0"> -->
-		    <div class="resultlinklist">
-			<dl tal:repeat="result pages[lg]['results']"> 
-				<hr />
-				<dt><a href="{result['link']}">${result['term']}</a></dt>
-				<dd>			  
-				    ${result['definition']}
-				</dd> 
-			</dl>
+		<h3> ${lg} </h3>  ${len(pages[lg])} pages
+		<div class="pages">
+		    <div class="pageresult" tal:repeat="d pages[lg]"> 
+		    
+		    <a tal:attributes="href d['link']">${d['name']}</a> <span>${d['totalmatches']} matches</span>
+		    <div class="pagehits">
+			${' ... '.join(d['matches'])}  
 		    </div>
-<!-- 		</div> -->
+		</div> 
 	    </div> 
         </div>
 
-
-        </div>
         <div id="pagebottom"></div>
+
+      </div>
+    </div>
       </div>
     </div>
   </body>

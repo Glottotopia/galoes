@@ -25,3 +25,4 @@ galoes/static/pyramid-small.png
 galoes/static/pyramid.png
 galoes/static/transparent.gif
 galoes/templates/mytemplate.pt
+galoes/templates/result.pt
